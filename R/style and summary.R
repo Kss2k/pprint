@@ -166,6 +166,7 @@ pdataframe <- function(x,
                         Min = apply(x, 2, min, na.rm = T),
                         Max = apply(x, 2, max, na.rm = T)) |>
     suppressWarnings()
+  pprint(table_x)
 }
 
 # Overall Summary
