@@ -123,6 +123,9 @@ pprint <- function(x,
   }
 }
 
+get_N <- function(x) {
+  complete.cases(x) |> sum()
+}
 count_na <- function(x) {
   is.na(x) |> sum()
 }
@@ -159,6 +162,7 @@ pdataframe <- function(x,
 
   table_x <- data.frame(Variables = colnames(x),
                         Type = purrr::map_chr(x, class),
+                        Obs = apply(x, 2, get_N),
                         Missing = purrr::map_dbl(x, count_na),
                         Unique = purrr::map_dbl(x, count_unique),
                         Mean = purrr::map_dbl(x, mean, na.rm = T),
