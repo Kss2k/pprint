@@ -156,10 +156,10 @@ pdataframe <- function(x,
                        plaintext = theme_colors(fg = T),
                        style = "default", rows = nrow(x),
                        ...){
-  x <- as.data.frame(x)
-
-
-
+  
+  
+  
+  
   table_x <- data.frame(Variables = colnames(x),
                         Type = purrr::map_chr(x, class),
                         Obs = apply(x, 2, get_N),
@@ -170,7 +170,38 @@ pdataframe <- function(x,
                         Min = apply(x, 2, min, na.rm = T),
                         Max = apply(x, 2, max, na.rm = T)) |>
     suppressWarnings()
-  pprint(table_x)
+  
+  colorDF::as.colorDF(table_x, theme = "wb") -> table_x
+  
+  colorDF::df_style(table_x) <- list(
+    col.names  = list(fg=plaintext, decoration= "underline", align="center"),
+    row.names = list(fg = plaintext, decoration = F, align = "right"),
+    digits = 3,
+    fg_na = secondary,
+    interleave = NULL,
+    colorDF::col_type(table_x, cols = "Summary") <- "summary",
+    colorDF::col_type(table_x, cols = "Class") <- "class",
+    colorDF::col_type(table_x, cols = "Col") <- "col",
+    colorDF::col_type(table_x, cols = "Variables") <- "var",
+    type.styles = list(
+      integer    = list(fg=primary, fg_neg=secondary, is.numeric=TRUE, align="right"),
+      character  = list(align="right", fg = secondary),
+      numeric    = list(fg=primary, fg_neg=secondary, is.numeric=TRUE, align="right"),
+      logical    = list(fg_true="blue", fg_false=secondary, align="right"),
+      factor     = list(fg="blue", is.numeric=FALSE, align="right"),
+      identifier = list(decoration="bold", align="right"),
+      match      = list(fg="purple", fg_match=secondary),
+      pval       = list(fg_sign=secondary, fg=primary, align = "right", sign.thr=0.05, is.pval=F),
+      default    = list(align="left"),
+      summary  = list(align = "center", fg = primary),
+      class = list(align = "right", fg = secondary),
+      col = list(align = "left", fg = plaintext),
+      var = list(align = "left", fg = plaintext)
+      
+    )
+    
+  )
+  invisible(colorDF::print_colorDF(table_x, n = rows, row.names = FALSE))
 }
 
 # Overall Summary
