@@ -27,7 +27,7 @@ pfactor <- function(factor_model ,
                     threshold = .4,
                     eigenvalues = T,
                     highlight_correlations = .2,
-                    Pattern_Matrix = T,
+                    pattern_matrix = T,
                     correlations = T,
                     rotation_map = F,
                     scree_plot = F,
@@ -44,8 +44,8 @@ pfactor <- function(factor_model ,
 
   }
   #Factorloadings
-  if (Pattern_Matrix == T) {
-    Pattern_Matrix(factor_model,
+  if (pattern_matrix == T) {
+    pattern_matrix(factor_model,
                    primary = primary,
                    secondary = secondary,
                    plaintext = plaintext,
@@ -171,8 +171,8 @@ eigenvalue_table <- function(factor_model , primary = theme_colors(primary = T),
 }
 
 
-#### Pattern matrix ####
-Pattern_Matrix <- function(factor_model,
+#### P matrix ####
+pattern_matrix <- function(factor_model,
                            primary = theme_colors(primary = T),
                            secondary = theme_colors(secondary = T),
                            plaintext = theme_colors(fg = T),
@@ -222,8 +222,15 @@ Pattern_Matrix <- function(factor_model,
   )
   pattern_matrix <- round(pattern_matrix, digits = 3)
   # Old pattern_matrix[1:number_of_factors][pattern_matrix[1:number_of_factors] < blank] <- ""
+
   # New
   pattern_matrix[1:number_of_factors][abs(pattern_matrix[1:number_of_factors]) < blank] <- ""
+
+
+  # New 15/06/23
+  pattern_matrix[1:number_of_factors][pattern_matrix[1:number_of_factors] < blank &
+                                        pattern_matrix[1:number_of_factors] > -blank] <- ""
+
 
   cat("\n \n \n Summary: Factorloadings and Communalities \n")
   colorDF::print_colorDF(pattern_matrix, n = nrow(pattern_matrix))
