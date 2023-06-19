@@ -221,7 +221,9 @@ Pattern_Matrix <- function(factor_model,
       )
   )
   pattern_matrix <- round(pattern_matrix, digits = 3)
-  pattern_matrix[1:number_of_factors][pattern_matrix[1:number_of_factors] < blank] <- ""
+  # Old pattern_matrix[1:number_of_factors][pattern_matrix[1:number_of_factors] < blank] <- ""
+  # New
+  pattern_matrix[1:number_of_factors][abs(pattern_matrix[1:number_of_factors]) < blank] <- ""
 
   cat("\n \n \n Summary: Factorloadings and Communalities \n")
   colorDF::print_colorDF(pattern_matrix, n = nrow(pattern_matrix))
