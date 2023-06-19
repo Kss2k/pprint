@@ -27,7 +27,7 @@ pfactor <- function(factor_model ,
                     threshold = .4,
                     eigenvalues = T,
                     highlight_correlations = .2,
-                    Pattern_Matrix = T,
+                    P_Matrix = T,
                     correlations = T,
                     rotation_map = F,
                     scree_plot = F,
@@ -44,8 +44,8 @@ pfactor <- function(factor_model ,
 
   }
   #Factorloadings
-  if (Pattern_Matrix == T) {
-    Pattern_Matrix(factor_model,
+  if (P_Matrix == T) {
+    P_Matrix(factor_model,
                    primary = primary,
                    secondary = secondary,
                    plaintext = plaintext,
@@ -105,14 +105,14 @@ eigenvalue_table <- function(factor_model , primary = theme_colors(primary = T),
 
   #Rotated eigenvalues
 
-  pattern_matrix <- factor_model$loadings |>
+  p_matrix <- factor_model$loadings |>
     as.list() |> unlist() |>
     matrix(nrow = number_of_items, ncol = number_of_factors) |>
     as.data.frame(row.names = item_names, make.names = T) |>
     apply(2, as.numeric)
 
 
-  rotated_eigenvalues <- pattern_matrix^2 |> apply(2, sum) |> as.data.frame()
+  rotated_eigenvalues <- p_matrix^2 |> apply(2, sum) |> as.data.frame()
   rotated_eigenvalues[nrow(rotated_eigenvalues) +
                         number_of_items - number_of_factors,] <- NA
 
@@ -171,8 +171,8 @@ eigenvalue_table <- function(factor_model , primary = theme_colors(primary = T),
 }
 
 
-#### Pattern matrix ####
-Pattern_Matrix <- function(factor_model,
+#### P matrix ####
+P_Matrix <- function(factor_model,
                            primary = theme_colors(primary = T),
                            secondary = theme_colors(secondary = T),
                            plaintext = theme_colors(fg = T),
@@ -191,15 +191,15 @@ Pattern_Matrix <- function(factor_model,
     factor_names[[i+2]] <- " Communality"
   }
 
-  pattern_matrix <- factor_model$loadings |>
+  p_matrix <- factor_model$loadings |>
     as.list() |> unlist() |>
     matrix(nrow = length(item_names), ncol = number_of_factors) |>
     as.data.frame(row.names = item_names, make.names = T)
 
   #adding complexity
-  pattern_matrix[number_of_factors + 1] <- as.vector(factor_model[["complexity"]])
+  p_matrix[number_of_factors + 1] <- as.vector(factor_model[["complexity"]])
   #adding communality
-  pattern_matrix[number_of_factors + 2] <- as.vector(factor_model[["communality"]])
+  p_matrix[number_of_factors + 2] <- as.vector(factor_model[["communality"]])
   #naming the columns
   colnames(pattern_matrix) <- factor_names
 
@@ -224,7 +224,7 @@ Pattern_Matrix <- function(factor_model,
   # Old pattern_matrix[1:number_of_factors][pattern_matrix[1:number_of_factors] < blank] <- ""
 
   # New 15/06/23
-  attern_matrix[1:number_of_factors][pattern_matrix[1:number_of_factors] < blank & 
+  pattern_matrix[1:number_of_factors][pattern_matrix[1:number_of_factors] < blank & 
                                         pattern_matrix[1:number_of_factors] > -blank] <- ""
 
   cat("\n \n \n Summary: Factorloadings and Communalities \n")
