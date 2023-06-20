@@ -20,7 +20,7 @@ glm(default ~ balance + income, data = ISLR::Default, family = binomial(link = l
 ```
 ## Example: factor analysis 
 ```
-psych::fa(iris[1:4], nfactors = 2, fm = "pa") |> psummary() |> suppressWarnings()
+psych::fa(iris[1:4], nfactors = 2, fm = "pa") |> suppressWarnings() |> psummary() 
 ```
 
 # Color Schemes
