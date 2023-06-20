@@ -12,7 +12,7 @@ pfactor(
   threshold = 0.4,
   eigenvalues = T,
   highlight_correlations = 0.2,
-  Pattern_Matrix = T,
+  pattern_matrix = T,
   correlations = T,
   rotation_map = F,
   scree_plot = F,
@@ -34,8 +34,6 @@ pfactor(
 
 \item{highlight_correlations}{factor correlations above the value are highlighted}
 
-\item{Pattern_Matrix}{if TRUE (default) pattern matrix is printed}
-
 \item{correlations}{if TRUE (default) factor correlations are printed}
 
 \item{rotation_map}{if TRUE (default) rotation map is printed}
@@ -43,6 +41,8 @@ pfactor(
 \item{scree_plot}{if TRUE screeplot is printed NB: not implemented yet}
 
 \item{descriptives}{if TRUE descriptives are included NB: not implemented yet}
+
+\item{Pattern_Matrix}{if TRUE (default) pattern matrix is printed}
 }
 \description{
 Summary for fa/principal object from psych package

@@ -75,10 +75,18 @@ pdataframe_old <- function(x, primary = theme_colors(primary = T), secondary = t
 #' @param style chose style to print in, currently only "default" is supported
 #' @param rows maximum number of rows to print
 #'
+#'
 #' @return
 #' @export
 #'
-#' @examples
+#' @examples ## regression preg(
+#' lm-object,
+#' primary = theme_colors(primary = T),
+#' secondary = theme_colors(secondary = T),
+#' plaintext = theme_colors(fg = T),
+#' std_beta = FALSE,
+#' ...)
+#'
 pprint <- function(x,
                    primary = theme_colors(primary = T),
                    secondary = theme_colors(secondary = T),
@@ -156,10 +164,10 @@ pdataframe <- function(x,
                        plaintext = theme_colors(fg = T),
                        style = "default", rows = nrow(x),
                        ...){
-  
-  
-  
-  
+
+
+
+
   table_x <- data.frame(Variables = colnames(x),
                         Type = purrr::map_chr(x, class),
                         Obs = apply(x, 2, get_N),
@@ -170,9 +178,9 @@ pdataframe <- function(x,
                         Min = apply(x, 2, min, na.rm = T),
                         Max = apply(x, 2, max, na.rm = T)) |>
     suppressWarnings()
-  
+
   colorDF::as.colorDF(table_x, theme = "wb") -> table_x
-  
+
   colorDF::df_style(table_x) <- list(
     col.names  = list(fg=plaintext, decoration= "underline", align="center"),
     row.names = list(fg = plaintext, decoration = F, align = "right"),
@@ -197,9 +205,9 @@ pdataframe <- function(x,
       class = list(align = "right", fg = secondary),
       col = list(align = "left", fg = plaintext),
       var = list(align = "left", fg = plaintext)
-      
+
     )
-    
+
   )
   invisible(colorDF::print_colorDF(table_x, n = rows, row.names = FALSE))
 }

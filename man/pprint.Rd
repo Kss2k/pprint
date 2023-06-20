@@ -29,3 +29,13 @@ pprint(
 \description{
 pretty print for dataframes
 }
+\examples{
+## regression preg(
+lm-object,
+primary = theme_colors(primary = T),
+secondary = theme_colors(secondary = T),
+plaintext = theme_colors(fg = T),
+std_beta = FALSE,
+...)
+
+}
