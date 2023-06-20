@@ -8,9 +8,10 @@ pprint automatically detects your theme on Rstudio (not all are supported yet) a
 
 ## Example
 
-'''
+
+`
 default_theme_options(primary_color = "red", # this changes the primary colour used when the Rstudio theme is not used
                       secondary_color = "green", # this changes the secondary colour used when the Rstudio theme is not used
                       tertiary_color = "blue" # this changes the tertiary colour used when the Rstudio theme is not used
                       gather_colors_from_theme = TRUE) # if FALSE pprint never uses Rstudio theme, instead using the default colors
-'''
+`
