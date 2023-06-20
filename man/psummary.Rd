@@ -2,14 +2,54 @@
 % Please edit documentation in R/style and summary.R
 \name{psummary}
 \alias{psummary}
-\title{Summary for different types of objects}
+\title{Summary for different types of objects, done by calling individually tailored functions.
+
+lm-objects: calls preg() function
+dataframe objects: calls pdataframe() function
+glm-objects (family = binomial(link = logit)): calls plogit() function
+psych fa/principal objects: calls pfactor() function
+}
 \usage{
+# dataframe see pdataframe() for details
 psummary(object, ...)
+
+# regression see preg() for details
+psummary(x,
+     primary = theme_colors(primary = T),
+     secondary = theme_colors(secondary = T),
+     plaintext = theme_colors(fg = T),
+     std_beta = FALSE,
+     ...)
+
+# FactorAnalysis see pfactor() for details
+psummary(
+  factor_model,
+  primary = theme_colors(primary = T),
+  secondary = theme_colors(secondary = T),
+  plaintext = theme_colors(fg = T),
+  threshold = 0.4,
+  eigenvalues = T,
+  highlight_correlations = 0.2,
+  pattern_matrix = T,
+  correlations = T,
+  rotation_map = F,
+  scree_plot = F,
+  descriptives = F
+)
+
+# Logistic Regression see plogit() for details
+psummary(
+  logistic_reg_model,
+  primary = theme_colors(primary = T),
+  secondary = theme_colors(secondary = T),
+  plaintext = theme_colors(fg = T),
+  accuracy = FALSE
+)
 }
 \arguments{
-\item{object}{a dataframe/tibble/matrix, lm-object, psych fa/principal object, or GLM-object family = binomial(link = "logit")}
+\item{object}{ A dataframe/tibble/matrix, lm-object, psych fa/principal object, or GLM-object family = binomial(link = "logit")}
 
-\item{...}{arguments passed on to the summary functions for each object, respectively: pdataframe, preg, pfactor and plogit}
+\item{...}{ Arguments passed on to the summary functions for each object, respectively: pdataframe, preg, pfactor and plogit}
 }
 \description{
 Summary for different types of objects
