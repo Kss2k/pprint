@@ -4,6 +4,17 @@ pprint is a package for R which intends to improve the summary output for common
 
 the most important function in pprint is the psummary function which summarises different objects. 
 
+## Example: dataframe summary
+```
+psummary(iris)
+```
+
+## Example: Linear Regression
+```
+lm(Sepal.Length ~ Sepal.Width + Petal.Width, data = iris) |> psummary(std.beta = T)
+```
+
+
 pprint automatically detects your theme on Rstudio (not all are supported yet) and adapts the color of your output accordingly. The use of colors is meant to make the output easier to read. You can change the default color settings using default_theme_options() in your .Rprofile
 
 ## Example
