@@ -60,10 +60,10 @@ plogit <- function(logistic_reg_model,
 
   # General information
   N = nrow(logistic_reg_model[["model"]])
-  log_lik <- lrtest(logistic_reg_model)$LogLik[1] |>
+  log_lik <- lmtest::lrtest(logistic_reg_model)$LogLik[1] |>
     round(3)
-  chi_sq <- lrtest(logistic_reg_model)$Chisq[2]
-  Pr_chi_sq <- lrtest(logistic_reg_model)[["Pr(>Chisq)"]][2] |>
+  chi_sq <- lmtest::lrtest(logistic_reg_model)$Chisq[2]
+  Pr_chi_sq <- lmtest::lrtest(logistic_reg_model)[["Pr(>Chisq)"]][2] |>
     signif(3)
   PseudoRsq <- DescTools::PseudoR2(logistic_reg_model, which = "McFadden")
 
