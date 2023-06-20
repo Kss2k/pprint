@@ -231,7 +231,7 @@ psummary <- function(object, ...) {
   }
 
   else if (is.data.frame(object) |
-           tibble::is.tibble(object) |
+           tibble::is_tibble(object) |
            is.matrix(object)) {
     pdataframe(object, ...)
   }
