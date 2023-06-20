@@ -13,7 +13,13 @@ psummary(iris)
 ```
 lm(Sepal.Length ~ Sepal.Width + Petal.Width, data = iris) |> psummary(std.beta = T)
 ```
+## Example: Logistic Regression 
 
+```
+glm(default ~ balance + income, data = ISLR::Default, family = binomial(link = logit)) |> psummary(accuracy = TRUE)
+```
+## Example: factor analysis 
+psych::fa(iris[1:4], nfactors = 2, fm = "pa") |> psummary() |> suppressWarnings()
 
 pprint automatically detects your theme on Rstudio (not all are supported yet) and adapts the color of your output accordingly. The use of colors is meant to make the output easier to read. You can change the default color settings using default_theme_options() in your .Rprofile
 
