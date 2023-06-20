@@ -230,9 +230,9 @@ psummary <- function(object, ...) {
     }
   }
 
-  else if (class_object[1] == "data.frame" |
-           class_object[1] == "tbl_df" |
-           class_object[1] == "matrix") {
+  else if (is.data.frame(object) |
+           is.tibble(object) |
+           is.matrix(object)) {
     pdataframe(object, ...)
   }
   else if (class_object[1] == "glm") {
