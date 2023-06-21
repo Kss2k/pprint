@@ -33,7 +33,7 @@ theme_support <- function(theme_name) {
                   secondary = "#AE81FF",
                   foreground = "#F8F8F2"),
     Dracula = list(primary = "mediumpurple2",
-                   secondary = "hotpink",
+                   secondary = "magenta",
                    foreground = "#F8F8F2")
 
 
