@@ -4,51 +4,60 @@ format_percent <- function(x) {
   paste0(round(x*100, digits = 0), "%")
 }
 
-getmax <- function(x) {
+#### Functions inside pdataframe ####
 
+get_N <- function(x) {
+  complete.cases(x) |> sum()
+}
+
+count_na <- function(x) {
+  is.na(x) |> sum()
+}
+
+count_unique <- function(x) {
+  unique(x) |> length()
+}
+
+
+getmax <- function(x) {
   if (is.numeric(x) | is.integer(x)) {
-    uniqv <- max(x, na.rm = T)
+    max(x, na.rm = T)
   }
   else {
-    uniqv <- NA
+    NA
   }
-  return(uniqv)
+
 }
 
 getmin <- function(x) {
-
   if (is.numeric(x) | is.integer(x)) {
     uniqv <- min(x, na.rm = T)
-
   }
   else {
-    uniqv <- NA
+    NA
   }
-
-  return(uniqv)
 }
 
-getmean <- function(x, na.ignore = T) {
+getmean <- function(x) {
   if (is.numeric(x) | is.integer(x)) {
-    arithmetic_mean <- mean(x, na.rm = na.ignore)
+    mean(x, na.rm = T)
   }
   else {
-    arithmetic_mean <- NA
+    NA
   }
-  return(arithmetic_mean)
 }
 
-get_sd <- function(x, na.ignore = T){
+get_sd <- function(x){
   if (is.numeric(x) | is.integer(x)) {
-    std.dev <- sd(x, na.rm = na.ignore)
+    sd(x, na.rm = T)
   }
   else {
-    std.dev <- NA
+    NA
   }
-  return(std.dev)
 }
 
 
+# Div
 
 abs_exp_dev <- function(model_input) {
   (model_input$model[[1]] - mean(model_input$model[[1]])) |>
@@ -59,7 +68,7 @@ abs_exp_dev <- function(model_input) {
   return(explained_absolute_deviation)
 }
 
-# Two functions which together only scale numeric and integer variables. (i.e, allowing me to get cohens'd for factor-variables) 
+# Two functions which together only scale numeric and integer variables. (i.e, allowing me to get cohens'd for factor-variables)
 scale_if_numeric <- function(variable) {
   if (is.integer(variable) | is.numeric(variable)) {
     return(scale(variable))
