@@ -188,7 +188,7 @@ pdataframe <- function(x,
 
 
   table_x <- data.frame(Variables = colnames(x),
-                        Type = map_chr(x, class),
+                        Type = purrr::map_chr(x, class),
                         Obs = apply(x, 2, get_N),
                         Missing = purrr::map_dbl(x, count_na),
                         Unique = purrr::map_dbl(x, count_unique),
