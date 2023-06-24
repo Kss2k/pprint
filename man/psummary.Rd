@@ -4,10 +4,6 @@
 \alias{psummary}
 \title{Summary for different types of objects, done by calling individually tailored functions.
 
-lm-objects: calls preg() function
-dataframe objects: calls pdataframe() function
-glm-objects (family = binomial(link = logit)): calls plogit() function
-psych fa/principal objects: calls pfactor() function
 }
 \usage{
 # dataframe see pdataframe() for details
@@ -52,5 +48,13 @@ psummary(
 \item{...}{ Arguments passed on to the summary functions for each object, respectively: pdataframe, preg, pfactor and plogit}
 }
 \description{
-Summary for different types of objects
+Summary for different types of objects:
+
+lm-objects: calls preg() function
+
+dataframe objects: calls pdataframe() function
+
+glm-objects (family = binomial(link = logit)): calls plogit() function
+
+psych fa/principal objects: calls pfactor() function
 }
