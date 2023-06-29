@@ -12,6 +12,7 @@
 #' @examples
 #'
 plogit <- function(logistic_reg_model,
+                   odds_ratio = FALSE,
                    primary = theme_colors(primary = T),
                    secondary = theme_colors(secondary = T),
                    plaintext = theme_colors(fg = T),
@@ -28,16 +29,27 @@ plogit <- function(logistic_reg_model,
 
   suppressMessages(model_coefficients[5:6] <- confint(logistic_reg_model)[1:nrow(model_coefficients), 1:2])
   # adding colnames
-  colnames(model_coefficients) <- c(" Coefficients",
-                                    " std.error",
-                                    " t-value",
-                                    " p-value",
-                                    " CI[2.5%]",
-                                    " CI[97.5%]")
+  colnames(model_coefficients) <- c("Coefficients",
+                                    "std.error",
+                                    "t-value",
+                                    "p-value",
+                                    "CI[2.5%]",
+                                    "CI[97.5%]")
+
   # Rounding (all except p-values)
-  model_coefficients[,-4] <- round(model_coefficients[,-4], digits = 3)
+  model_coefficients[,-4] <- round(model_coefficients[-4], digits = 3)
 
+  # Adding Odds Ratio Coefficients
+  if (odds_ratio == TRUE) {
 
+    model_coefficients <- dplyr::mutate(model_coefficients,
+                                 OddsRatio =
+                                   exp(Coefficients) |>
+                                   as.vector() |>
+                                   round(3),
+                                 .after = Coefficients
+                                 )
+  }
 
 
   # adding color

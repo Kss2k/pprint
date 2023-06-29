@@ -178,13 +178,16 @@ pprint <- function(x,
 #'
 #' @examples
 pdataframe <- function(x,
+                       haven_labelled = FALSE,
                        primary = theme_colors(primary = T),
                        secondary = theme_colors(secondary = T),
                        plaintext = theme_colors(fg = T),
                        style = "default", rows = nrow(x),
                        ...){
 
-
+  if (haven_labelled == TRUE) {
+    x <- haven::zap_labels(x)
+  }
 
 
   table_x <- data.frame(Variables = colnames(x),

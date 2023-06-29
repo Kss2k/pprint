@@ -20,4 +20,5 @@ Imports:
     car,
     lmtest,
     DescTools,
-    purrr
+    purrr,
+    haven
