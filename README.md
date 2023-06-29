@@ -14,7 +14,7 @@ psummary(iris)
 lm(Sepal.Length ~ Sepal.Width + Petal.Width, data = iris) |> psummary(std.beta = T)
 ```
 ## Example: Logistic Regression 
-
+NB: You first have to install the ISLR package, which includes the ISLR dataset
 ```
 glm(default ~ balance + income, data = ISLR::Default, family = binomial(link = logit)) |> psummary(accuracy = TRUE)
 ```
