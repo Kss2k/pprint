@@ -6,7 +6,6 @@
 \usage{
 plogit(
   logistic_reg_model,
-  odds_ratio = FALSE
   primary = theme_colors(primary = T),
   secondary = theme_colors(secondary = T),
   plaintext = theme_colors(fg = T),
@@ -15,8 +14,6 @@ plogit(
 }
 \arguments{
 \item{logistic_reg_model}{a GLM type object family = binomial(link = "logit)}
-
-\item{odds_ratio} {if TRUE odds ratio coefficients are displayed}
 
 \item{primary}{primary colour this is automatically chosen, but can be overwritten}
 
