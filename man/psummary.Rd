@@ -7,7 +7,9 @@
 }
 \usage{
 # dataframe see pdataframe() for details
-psummary(object, ...)
+psummary(object,
+         laven_labelled = FALSE
+         ...)
 
 # regression see preg() for details
 psummary(x,

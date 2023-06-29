@@ -18,7 +18,7 @@ pdataframe(
 \arguments{
 \item{x}{dataframe, matrix or tibble object}
 
-\item{haven_labelled} {Experimental, the psummary for dataframes has trouble with variables with haven_labels, so they are removed if haven_labelled = TRUE}
+\item{haven_labelled}{Experimental, the psummary for dataframes has trouble with variables with haven_labels, so they are removed if haven_labelled = TRUE}
 
 \item{primary}{primary colour this is automatically chosen, but can be overwritten}
 
