@@ -11,7 +11,7 @@ psummary(iris)
 
 ## Example: Linear Regression
 ```
-lm(Sepal.Length ~ Sepal.Width + Petal.Width, data = iris) |> psummary(std.beta = T)
+lm(Sepal.Length ~ Sepal.Width + Petal.Width, data = iris) |> psummary(std_beta = T)
 ```
 ## Example: Logistic Regression 
 NB: You first have to install the ISLR package, which includes the ISLR dataset
