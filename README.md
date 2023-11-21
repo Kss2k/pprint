@@ -23,13 +23,7 @@ glm(default ~ balance + income, data = ISLR::Default, family = binomial(link = l
 psych::fa(iris[1:4], nfactors = 2, fm = "pa") |> suppressWarnings() |> psummary() 
 ```
 
-# Color Schemes
-pprint automatically detects your theme on Rstudio (not all are supported yet) and adapts the color of your output accordingly. The use of colors is meant to make the output easier to read. You can change the default color settings using default_theme_options() in your .Rprofile
 
-## Example
-
-
-```
 default_theme_options(primary_color = "red", # this changes the primary colour used when the Rstudio theme is not used
                       secondary_color = "green", # this changes the secondary colour used when the Rstudio theme is not used
                       tertiary_color = "blue" # this changes the tertiary colour used when the Rstudio theme is not used
