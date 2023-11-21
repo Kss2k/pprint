@@ -48,7 +48,7 @@ theme_support <- function(theme_name) {
 
 
 
-theme_colors <- function(fg = F, primary = F, secondary = F) {
+themeColors <- function(type = "primary") {
   current_theme_name <- rstudioapi::getThemeInfo()$editor
 
   if (default_theme_options("gather_colors_from_theme") == TRUE){
@@ -60,31 +60,20 @@ theme_colors <- function(fg = F, primary = F, secondary = F) {
 
 
   if (is.list(theme_settings)){
-  primary_col <- theme_settings$primary
-  secondary_col <- theme_settings$secondary
-  foreground <- theme_settings$foreground
+    primary_col <- theme_settings$primary
+    secondary_col <- theme_settings$secondary
   }
 
   else {
-  primary_col <- default_theme_options("primary_color")
-  secondary_col <- default_theme_options("secondary_color")
-
-  if (fg == T){
-   foreground <- rstudioapi::getThemeInfo()$foreground
-   str_fg <- foreground |> stringr::str_replace("\\)", ", maxColorValue = 255)")
-   parse(text = str_fg) |> eval() -> foreground
-   return(foreground)
+    primary_col <- default_theme_options("primary_color")
+    secondary_col <- default_theme_options("secondary_color")
 
   }
 
-  }
-
-
-  if (primary == T){
-  return(primary_col)
-  }
-  if (secondary == T){
-  return(secondary_col)
+  if (type == "primary"){
+    return(primary_col)
+  } else if (type == "secondary"){
+    return(secondary_col)
   }
 
 

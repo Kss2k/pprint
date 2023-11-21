@@ -20,10 +20,7 @@
 #' @export
 #'
 #' @examples
-pfactor <- function(factor_model ,
-                    primary = theme_colors(primary = T),
-                    secondary = theme_colors(secondary = T),
-                    plaintext = theme_colors(fg = T),
+psummary.psych <- function(factor_model,
                     threshold = .4,
                     eigenvalues = T,
                     highlight_correlations = .2,
@@ -34,49 +31,34 @@ pfactor <- function(factor_model ,
                     descriptives = F) {
 
 
-
   #Eigenvaluetable¨
-  if (eigenvalues == T) {
-  eigenvalue_table(factor_model ,
-                   primary = primary,
-                   secondary = secondary,
-                   plaintext = plaintext)
-
+  if (eigenvalues == TRUE) {
+    eigenvalue_table(factor_model)
   }
   #Factorloadings
-  if (pattern_matrix == T) {
+  if (pattern_matrix == TRUE) {
     pattern_matrix(factor_model,
-                   primary = primary,
-                   secondary = secondary,
-                   plaintext = plaintext,
-                   blank = threshold
-                   )
-
+                   blank = threshold)
   }
 
   #Factor correlations
-  if (correlations == T) {
+  if (correlations == TRUE) {
     factor_correlations(factor_model ,
                         primary = primary,
-                        secondary = secondary,
-                        plaintext = plaintext,
                         highlight = highlight_correlations)
   }
 
-  if (rotation_map == T){
+  if (rotation_map == TRUE){
     rotation_matrix(factor_model ,
                         primary = primary,
-                        secondary = secondary,
-                        plaintext = plaintext,
                         highlight = highlight_correlations)
   }
-
 
 }
 
 #### Eigenvalue_table ####
 
-eigenvalue_table <- function(factor_model , primary = theme_colors(primary = T), secondary = theme_colors(secondary = T), plaintext = theme_colors(fg = T)) {
+eigenvalue_table <- function(factor_model) {
   #number of factors
   number_of_factors <- factor_model[["Call"]][["nfactors"]]
   #itemnames
@@ -130,7 +112,7 @@ eigenvalue_table <- function(factor_model , primary = theme_colors(primary = T),
 
 
 
-  eigenvalue_table <- data.frame(Eigenvalues = eigenvalues,
+  eigenvalue_table <- data.frame(Eigenvalues = round(eigenvalues, 3),
                                  Percent = percent,
                                  Cumulative = cumulative,
                                  Extraction_Eigenvalues = round(rotated_eigenvalues, digits = 3),
@@ -143,39 +125,16 @@ eigenvalue_table <- function(factor_model , primary = theme_colors(primary = T),
     eigenvalue_table[i, 4:6] <- ""
   }
 
-  colnames(eigenvalue_table) <- c(" Eigenvalues", " Percent",  " Cumulative", "_Eigenvalues", "_Percent", "_Cumulative")
+  colnames(eigenvalue_table) <- c("Eigenvalues", "Percent",  "Cumulative", "Eigenvalues.", "Percent.", "Cumulative.")
 
-
-  eigenvalue_table <- colorDF::as.colorDF(eigenvalue_table, theme = "wb")
-  colorDF::df_style(eigenvalue_table) <- list(
-    col.names  = list(fg=plaintext, align= "left", decoration= "underline", decoration = T),
-    row.names = list(fg = plaintext, decoration = F, align = "right"),
-    digits = 3,
-    autoformat = T,
-    col.types = NULL,
-    interleave = NULL,
-    type.styles = list(
-      numeric    = list(fg=primary, fg_neg=secondary, is.numeric=T, align="right"),
-      character  = list(fg = primary, align="right")
-    )
-  )
   cat("\n \n \n \n Summary: Eigenvalues and Explained Variance \n")
-  colorDF::print_colorDF(eigenvalue_table, n = nrow(eigenvalue_table))
-
-
-#
-
-
-
-
+  cPrint(eigenvalue_table, maxRow = nrow(eigenvalue_table),
+         rowNames = TRUE)
 }
 
 
 #### P matrix ####
 pattern_matrix <- function(factor_model,
-                           primary = theme_colors(primary = T),
-                           secondary = theme_colors(secondary = T),
-                           plaintext = theme_colors(fg = T),
                            blank = .4#,
                            #highlight = 0.6
                            ) {
@@ -186,9 +145,9 @@ pattern_matrix <- function(factor_model,
   #Factornames
   factor_names <- list(length = length(item_names))
   for (i in 1:number_of_factors) {
-    factor_names[[i]] <- paste0(" Factor", i)
-    factor_names[[i+1]] <- " Complexity"
-    factor_names[[i+2]] <- " Communality"
+    factor_names[[i]] <- paste0("Factor", i)
+    factor_names[[i+1]] <- "Complexity"
+    factor_names[[i+2]] <- "Communality"
   }
 
   pattern_matrix <- factor_model$loadings |>
@@ -205,21 +164,6 @@ pattern_matrix <- function(factor_model,
 
   #Making it a colorfull DF
   pattern_matrix <- colorDF::as.colorDF(pattern_matrix, theme = "wb")
-
-  colorDF::df_style(pattern_matrix) <- list(
-    col.names  = list(fg=plaintext, align= "left", decoration= "underline", decoration = T),
-    row.names = list(fg = plaintext, decoration = F, align = "right"),
-    digits = 3,
-    autoformat = T,
-    col.types = NULL,
-    interleave = NULL,
-    #colorDF::col_type(pattern_matrix, cols = colnames(pattern_matrix)) <- ("pval"),
-    type.styles = list(
-      numeric    = list(fg=primary, fg_neg=secondary, is.numeric=T, align="right"),
-      character = list(fg = primary, align = "right")#,
-      #pval = list(fg_sign="green", fg="red", align = "right", sign.thr= highlight, is.pval=F)
-      )
-  )
   pattern_matrix <- round(pattern_matrix, digits = 3)
   # Old pattern_matrix[1:number_of_factors][pattern_matrix[1:number_of_factors] < blank] <- ""
 
@@ -233,7 +177,8 @@ pattern_matrix <- function(factor_model,
 
 
   cat("\n \n \n Summary: Factorloadings and Communalities \n")
-  colorDF::print_colorDF(pattern_matrix, n = nrow(pattern_matrix))
+  cPrint(pattern_matrix, maxRow = nrow(pattern_matrix),
+         rowNames = TRUE)
 
 }
 
@@ -262,28 +207,11 @@ factor_correlations <- function(factor_model,
   colnames(correlation_matrix) <- factor_names
   rownames(correlation_matrix) <- factor_names
 
-  colorDF::df_style(correlation_matrix) <- list(
-    col.names  = list(fg=plaintext, align= "left", decoration= "underline", decoration = T),
-    row.names = list(fg = plaintext, decoration = F, align = "right"),
-    digits = 3,
-    autoformat = T,
-    col.types = NULL,
-    interleave = NULL,
-    colorDF::col_type(correlation_matrix, cols = colnames(correlation_matrix)) <- ("pval"),
-    type.styles = list(
-      numeric    = list(fg=primary, fg_neg=secondary, is.numeric=T, align="right"),
-      character = list(fg = primary, align = "right"),
-      pval = list(fg_sign=secondary, fg=primary, align = "right", sign.thr= highlight, is.pval=T)
-    )
-  )
   correlation_matrix <- round(correlation_matrix, digits = 3)
 
   cat("\n \n \n Summary: Factor correlations \n")
-  colorDF::print_colorDF(correlation_matrix, n = nrow(correlation_matrix))
-
-
-
-
+  cPrint(correlation_matrix, maxRow = nrow(correlation_matrix),
+         rowNames = TRUE)
 }
 
 rotation_matrix <- function(factor_model,
@@ -308,25 +236,12 @@ rotation_matrix <- function(factor_model,
   colnames(rotation_matrix) <- factor_names
   rownames(rotation_matrix) <- factor_names
 
-  colorDF::df_style(rotation_matrix) <- list(
-    col.names  = list(fg=plaintext, align= "left", decoration= "underline", decoration = T),
-    row.names = list(fg = plaintext, decoration = F, align = "right"),
-    digits = 3,
-    autoformat = T,
-    col.types = NULL,
-    interleave = NULL,
-    colorDF::col_type(rotation_matrix, cols = colnames(rotation_matrix)) <- ("pval"),
-    type.styles = list(
-      numeric    = list(fg=primary, fg_neg=secondary, is.numeric=T, align="right"),
-      character = list(fg = primary, align = "right"),
-      pval = list(fg_sign=secondary, fg=primary, align = "right", sign.thr= highlight, is.pval=T)
-    )
-  )
 
   rotation_matrix <- round(rotation_matrix, digits = 3)
 
   cat("\n \n \n Summary: Rotation Matrix \n")
-  colorDF::print_colorDF(rotation_matrix, n = nrow(rotation_matrix))
+  cPrint(rotation_matrix, maxRow = nrow(rotation_matrix),
+         rowNames = TRUE)
 
 }
 

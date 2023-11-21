@@ -13,7 +13,6 @@ RoxygenNote: 7.2.3
 Imports:
     dplyr,
     crayon,
-    colorDF,
     regclass,
     parameters,
     settings,
@@ -21,4 +20,6 @@ Imports:
     lmtest,
     DescTools,
     purrr,
-    haven
+    haven,
+    rlang,
+    cli, 
