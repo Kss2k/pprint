@@ -24,8 +24,9 @@ cPrint <- function(df, rowNames = FALSE, maxRow = 300, ...) {
                 FUN = formatDfRow,
                 widths = maxWidthCols))
   cat("\n")
-  cat(stringr::str_c(rows, collapse = "\n"))
+  cat(stringr::str_c(rows, collapse = "\n"), "\n")
 }
+
 
 maxWidth <- function(x) {
   if (grepl("p-val", x[[1]])) {
@@ -33,7 +34,6 @@ maxWidth <- function(x) {
   }
   max(nchar(as.character(x)), na.rm = TRUE)
 }
-
 
 
 lapplyDf <- function(df, FUN, ...) {
@@ -44,12 +44,10 @@ lapplyDf <- function(df, FUN, ...) {
 }
 
 
-
 setColorFuncs <- function() {
   primaryColor <<- cli::make_ansi_style(themeColors("primary"))
   secondaryColor <<- cli::make_ansi_style(themeColors("secondary"))
 }
-
 
 
 colorVector <- function(x, ...) {
@@ -65,12 +63,10 @@ colorVector <- function(x, ...) {
 }
 
 
-
 numericColor <- function(x) {
   ifelse(is.na(x), secondaryColor("NA"),
          ifelse(x < 0, secondaryColor(x), primaryColor(x)))
 }
-
 
 
 pvalColor <- function(x, scientific = FALSE) {
@@ -85,7 +81,6 @@ pvalColor <- function(x, scientific = FALSE) {
                              nsmall = 3)))
   out
 }
-
 
 
 formatDfRow <- function(row, widths, sep = "│ ", underline = FALSE) {
@@ -108,19 +103,13 @@ formatDfRow <- function(row, widths, sep = "│ ", underline = FALSE) {
 }
 
 
-
-
 as.plainTxt <- function(x) {
   class(x) <- "plainTxt"
   x
 }
 
 
-
 as.pval <- function(x) {
   class(x) <- "pval"
   x
 }
-
-
-

@@ -163,7 +163,6 @@ pattern_matrix <- function(factor_model,
   colnames(pattern_matrix) <- factor_names
 
   #Making it a colorfull DF
-  pattern_matrix <- colorDF::as.colorDF(pattern_matrix, theme = "wb")
   pattern_matrix <- round(pattern_matrix, digits = 3)
   # Old pattern_matrix[1:number_of_factors][pattern_matrix[1:number_of_factors] < blank] <- ""
 
@@ -202,7 +201,6 @@ factor_correlations <- function(factor_model,
     factor_names[[i]] <- paste0(" Factor", i)
 
   }
-  correlation_matrix <- colorDF::as.colorDF(correlation_matrix, theme = "wb")
 
   colnames(correlation_matrix) <- factor_names
   rownames(correlation_matrix) <- factor_names
@@ -231,7 +229,6 @@ rotation_matrix <- function(factor_model,
     factor_names[[i]] <- paste0(" Factor", i)
 
   }
-  rotation_matrix <- colorDF::as.colorDF(rotation_matrix, theme = "wb")
 
   colnames(rotation_matrix) <- factor_names
   rownames(rotation_matrix) <- factor_names

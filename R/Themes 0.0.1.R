@@ -1,5 +1,3 @@
- #### Global theme options ####
-
 default_theme_options <- settings::options_manager(
   primary_color = "#00CC66",
   secondary_color = "red",
@@ -9,10 +7,7 @@ default_theme_options <- settings::options_manager(
 )
 
 
-
-
-#### Themes ####
-
+# get themes
 theme_support <- function(theme_name) {
   theme_name <- stringr::str_replace_all(theme_name, " ", "_")
 
@@ -47,34 +42,30 @@ theme_support <- function(theme_name) {
 }
 
 
-
 themeColors <- function(type = "primary") {
-  current_theme_name <- rstudioapi::getThemeInfo()$editor
+  current_theme_name <- 
+    tryCatch(rstudioapi::getThemeInfo()$editor, 
+             error = function(e) "Monokai")
+
 
   if (default_theme_options("gather_colors_from_theme") == TRUE){
     theme_settings <- theme_support(current_theme_name)
-  }
-  else {
+  } else {
     theme_settings <- FALSE
   }
-
 
   if (is.list(theme_settings)){
     primary_col <- theme_settings$primary
     secondary_col <- theme_settings$secondary
-  }
-
-  else {
+  } else {
     primary_col <- default_theme_options("primary_color")
     secondary_col <- default_theme_options("secondary_color")
-
   }
 
   if (type == "primary"){
     return(primary_col)
   } else if (type == "secondary"){
     return(secondary_col)
-  }
-
-
+  } 
+  stop("Invalid type argument. Must be 'primary' or 'secondary'")
 }

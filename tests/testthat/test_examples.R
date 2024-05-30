@@ -1,0 +1,5 @@
+devtools::load_all()
+psummary(iris)
+lm(Sepal.Length ~ Sepal.Width + Petal.Width, data = iris) |> psummary(std_beta = T)
+glm(default ~ balance + income, data = ISLR::Default, family = binomial(link = logit)) |> psummary(accuracy = TRUE)
+psych::fa(iris[1:4], nfactors = 2, fm = "pa") |> suppressWarnings() |> psummary() 
