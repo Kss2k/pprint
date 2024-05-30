@@ -1,4 +1,4 @@
-# pprintAlpha
+# pprint
  
 pprint is a package for R which intends to improve the summary output for commonly used R objects, like dataframes linear regressions, factor models etc. 
 
